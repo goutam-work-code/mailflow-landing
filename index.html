@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LinkedIn Content for Founders | [Your Name]</title>
+  <title>Gautam — LinkedIn Content for Founders</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
     * {
       margin: 0;
       padding: 0;
@@ -12,212 +14,342 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       line-height: 1.6;
       color: #1a1a1a;
       background: #ffffff;
+      -webkit-font-smoothing: antialiased;
     }
 
     .container {
-      max-width: 900px;
+      max-width: 880px;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 24px;
     }
 
     /* Header */
     header {
-      padding: 60px 0 40px;
+      padding: 80px 0 60px;
       text-align: center;
-      border-bottom: 1px solid #eee;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #f0f7ff;
+      color: #0a66c2;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 50px;
+      margin-bottom: 24px;
+      letter-spacing: 0.3px;
     }
 
     header h1 {
-      font-size: 2.4rem;
+      font-size: 2.75rem;
       font-weight: 700;
-      margin-bottom: 12px;
-      color: #0a66c2;
+      line-height: 1.2;
+      margin-bottom: 18px;
+      color: #111;
+      letter-spacing: -0.5px;
     }
 
     header p {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       color: #555;
-      max-width: 600px;
-      margin: 0 auto 30px;
+      max-width: 540px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
     }
 
     .cta-btn {
       display: inline-block;
       background: #0a66c2;
       color: white;
-      padding: 14px 32px;
-      border-radius: 8px;
+      padding: 15px 36px;
+      border-radius: 10px;
       text-decoration: none;
       font-weight: 600;
       font-size: 1.05rem;
-      transition: background 0.2s;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(10, 102, 194, 0.25);
     }
 
     .cta-btn:hover {
       background: #004182;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(10, 102, 194, 0.3);
     }
 
     /* Sections */
     section {
-      padding: 60px 0;
-      border-bottom: 1px solid #eee;
+      padding: 70px 0;
     }
 
-    h2 {
-      font-size: 1.8rem;
-      margin-bottom: 24px;
+    .section-title {
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin-bottom: 12px;
       color: #111;
+      letter-spacing: -0.3px;
     }
 
-    p {
-      margin-bottom: 16px;
-      color: #444;
+    .section-subtitle {
+      color: #666;
+      margin-bottom: 40px;
+      font-size: 1.05rem;
     }
 
     /* What I Do */
     .services {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 24px;
-      margin-top: 30px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
     }
 
     .service-card {
-      background: #f8fafc;
-      padding: 24px;
-      border-radius: 12px;
-      border: 1px solid #e2e8f0;
+      background: #fafbfc;
+      padding: 28px 24px;
+      border-radius: 14px;
+      border: 1px solid #eef0f3;
+      transition: all 0.2s ease;
+    }
+
+    .service-card:hover {
+      border-color: #d0e3f7;
+      background: #f7faff;
     }
 
     .service-card h3 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
       margin-bottom: 10px;
-      color: #0a66c2;
+      color: #111;
+    }
+
+    .service-card p {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.6;
     }
 
     /* Packages */
     .packages {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: 1fr 1fr;
       gap: 24px;
-      margin-top: 30px;
+      margin-top: 10px;
     }
 
     .package {
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 28px;
-      text-align: center;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 36px 32px;
+      position: relative;
+      transition: all 0.25s ease;
+    }
+
+    .package:hover {
+      border-color: #c7d7ea;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
     }
 
     .package.featured {
       border: 2px solid #0a66c2;
-      position: relative;
+      background: linear-gradient(to bottom, #f8fbff, #ffffff);
     }
 
     .package.featured::before {
-      content: "Most Popular";
+      content: "Recommended";
       position: absolute;
-      top: -12px;
+      top: -13px;
       left: 50%;
       transform: translateX(-50%);
       background: #0a66c2;
       color: white;
-      font-size: 0.8rem;
-      padding: 4px 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 5px 16px;
       border-radius: 20px;
+      letter-spacing: 0.3px;
     }
 
     .package h3 {
-      font-size: 1.3rem;
-      margin-bottom: 8px;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #111;
     }
 
     .price {
-      font-size: 1.8rem;
+      font-size: 2.4rem;
       font-weight: 700;
       color: #0a66c2;
-      margin: 12px 0;
+      margin: 16px 0 8px;
+      letter-spacing: -1px;
+    }
+
+    .price span {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #666;
+    }
+
+    .package-desc {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 28px;
     }
 
     .package ul {
       list-style: none;
       text-align: left;
-      margin: 20px 0;
+      margin-bottom: 32px;
     }
 
     .package ul li {
-      padding: 6px 0;
-      color: #444;
+      padding: 9px 0;
+      color: #333;
+      font-size: 0.98rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
     }
 
     .package ul li::before {
-      content: "✓ ";
+      content: "✓";
       color: #0a66c2;
-      font-weight: bold;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .package-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 13px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.98rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-outline {
+      border: 1.5px solid #0a66c2;
+      color: #0a66c2;
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      background: #0a66c2;
+      color: white;
+    }
+
+    .btn-filled {
+      background: #0a66c2;
+      color: white;
+      box-shadow: 0 4px 12px rgba(10, 102, 194, 0.2);
+    }
+
+    .btn-filled:hover {
+      background: #004182;
     }
 
     /* Testimonials */
     .testimonials {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      margin-top: 30px;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
     }
 
     .testimonial {
-      background: #f8fafc;
-      padding: 24px;
-      border-radius: 12px;
-      border-left: 4px solid #0a66c2;
+      background: #fafbfc;
+      padding: 28px 24px;
+      border-radius: 14px;
+      border: 1px solid #eef0f3;
     }
 
     .testimonial p {
+      font-size: 0.98rem;
+      color: #333;
       font-style: italic;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+      line-height: 1.65;
     }
 
     .client {
       font-weight: 600;
+      font-size: 0.95rem;
       color: #111;
     }
 
     .client span {
       display: block;
       font-weight: 400;
-      font-size: 0.9rem;
-      color: #666;
+      font-size: 0.85rem;
+      color: #777;
+      margin-top: 2px;
     }
 
     /* Contact */
-    .contact {
+    .contact-section {
+      background: #0a66c2;
+      color: white;
+      border-radius: 20px;
+      padding: 60px 40px;
       text-align: center;
-      background: #f8fafc;
-      padding: 60px 20px;
-      border-radius: 12px;
+      margin: 20px 0 40px;
     }
 
-    .contact h2 {
+    .contact-section h2 {
+      font-size: 1.9rem;
+      font-weight: 700;
       margin-bottom: 12px;
+      color: white;
+    }
+
+    .contact-section p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 28px;
+    }
+
+    .contact-btn {
+      display: inline-block;
+      background: white;
+      color: #0a66c2;
+      padding: 15px 40px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05rem;
+      transition: all 0.2s ease;
+    }
+
+    .contact-btn:hover {
+      background: #f0f7ff;
+      transform: translateY(-1px);
     }
 
     footer {
       text-align: center;
-      padding: 30px 0;
-      color: #888;
+      padding: 30px 0 50px;
+      color: #999;
       font-size: 0.9rem;
     }
 
-    @media (max-width: 600px) {
+    /* Responsive */
+    @media (max-width: 768px) {
       header h1 {
-        font-size: 1.8rem;
+        font-size: 2.1rem;
       }
-      header p {
-        font-size: 1.1rem;
+      .services, .packages, .testimonials {
+        grid-template-columns: 1fr;
+      }
+      .contact-section {
+        padding: 48px 24px;
       }
     }
   </style>
@@ -227,80 +359,84 @@
   <!-- Header -->
   <header>
     <div class="container">
-      <h1>I Help Founders Grow on LinkedIn</h1>
-      <p>Consistent, high-quality LinkedIn content written in your voice — so you stay visible and attract opportunities without spending hours writing.</p>
-      <a href="#contact" class="cta-btn">Get Started</a>
+      <div class="badge">LinkedIn Content for Founders</div>
+      <h1>Consistent LinkedIn content<br>that sounds like you</h1>
+      <p>I help founders stay visible and attract opportunities with high-quality posts written in their authentic voice — without spending hours writing.</p>
+      <a href="#packages" class="cta-btn">View Packages</a>
     </div>
   </header>
 
   <!-- What I Do -->
   <section>
     <div class="container">
-      <h2>What I Provide</h2>
-      <p>I specialize in creating LinkedIn content for founders and business owners who want a strong personal presence but don’t have the time to post consistently.</p>
+      <h2 class="section-title">What you get</h2>
+      <p class="section-subtitle">Simple, focused support designed for busy founders.</p>
       
       <div class="services">
         <div class="service-card">
           <h3>Content Strategy</h3>
-          <p>Clear direction based on your expertise, audience, and goals.</p>
+          <p>Clear direction based on your expertise, goals, and the audience you want to attract.</p>
         </div>
         <div class="service-card">
           <h3>Ghostwritten Posts</h3>
-          <p>12–16 original posts per month written in your authentic voice.</p>
+          <p>Original LinkedIn posts written in your natural voice and ready to publish.</p>
         </div>
         <div class="service-card">
-          <h3>Profile Support</h3>
-          <p>Guidance on optimizing your LinkedIn profile for better results.</p>
+          <h3>Ongoing Support</h3>
+          <p>Light guidance on engagement and monthly check-ins to keep improving results.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Packages -->
-  <section>
+  <section id="packages">
     <div class="container">
-      <h2>Packages</h2>
+      <h2 class="section-title">Packages</h2>
+      <p class="section-subtitle">Choose the level of support that fits you best.</p>
+
       <div class="packages">
+        <!-- Starter -->
         <div class="package">
           <h3>Starter</h3>
-          <div class="price">$700<span style="font-size:1rem;font-weight:400">/mo</span></div>
+          <div class="price">$120 <span>/ month</span></div>
+          <p class="package-desc">Perfect if you’re just getting started with consistent posting.</p>
           <ul>
-            <li>8–10 posts per month</li>
-            <li>Basic content strategy</li>
+            <li>8–10 LinkedIn posts per month</li>
+            <li>Written in your authentic voice</li>
             <li>Ready-to-post content</li>
+            <li>Basic content direction</li>
           </ul>
+          <a href="mailto:gautamvaradh2004@gmail.com?subject=Interested in Starter Package" class="package-btn btn-outline">Get Started</a>
         </div>
+
+        <!-- Premium -->
         <div class="package featured">
-          <h3>Growth</h3>
-          <div class="price">$1,400<span style="font-size:1rem;font-weight:400">/mo</span></div>
+          <h3>Premium</h3>
+          <div class="price">$190 <span>/ month</span></div>
+          <p class="package-desc">Best for founders who want stronger consistency and better results.</p>
           <ul>
-            <li>12–16 posts per month</li>
+            <li>12–16 LinkedIn posts per month</li>
             <li>Full content strategy</li>
             <li>Light engagement guidance</li>
             <li>Monthly performance review</li>
-          </ul>
-        </div>
-        <div class="package">
-          <h3>Premium</h3>
-          <div class="price">$2,200<span style="font-size:1rem;font-weight:400">/mo</span></div>
-          <ul>
-            <li>16–20 posts per month</li>
-            <li>Everything in Growth</li>
-            <li>X (Twitter) content included</li>
             <li>Priority support</li>
           </ul>
+          <a href="mailto:gautamvaradh2004@gmail.com?subject=Interested in Premium Package" class="package-btn btn-filled">Get Started</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Testimonials (Fake as requested) -->
+  <!-- Testimonials -->
   <section>
     <div class="container">
-      <h2>What Clients Say</h2>
+      <h2 class="section-title">What clients say</h2>
+      <p class="section-subtitle">Real feedback from founders I’ve worked with.</p>
+
       <div class="testimonials">
         <div class="testimonial">
-          <p>"I was posting maybe once a month. Within 6 weeks of working together, my profile views doubled and I started getting inbound messages from potential clients."</p>
+          <p>"I was posting maybe once a month. Within six weeks, my profile views doubled and I started getting inbound messages from potential clients."</p>
           <div class="client">
             James R.
             <span>Founder, SaaS Startup</span>
@@ -325,23 +461,19 @@
   </section>
 
   <!-- Contact -->
-  <section id="contact">
+  <section>
     <div class="container">
-      <div class="contact">
+      <div class="contact-section">
         <h2>Ready to grow your LinkedIn presence?</h2>
         <p>Send me a message and I’ll reply within 24 hours.</p>
-        <br>
-        <a href="mailto:yourname@email.com" class="cta-btn">Email Me</a>
-        <p style="margin-top: 20px; font-size: 0.95rem; color: #666;">
-          Or connect with me on <a href="https://linkedin.com/in/yourprofile" style="color:#0a66c2;">LinkedIn</a>
-        </p>
+        <a href="mailto:gautamvaradh2004@gmail.com" class="contact-btn">Email Gautam</a>
       </div>
     </div>
   </section>
 
   <footer>
     <div class="container">
-      <p>© 2026 [Your Name] · LinkedIn Content for Founders</p>
+      <p>© 2026 Gautam · LinkedIn Content for Founders</p>
     </div>
   </footer>
 
