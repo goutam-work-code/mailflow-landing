@@ -1,252 +1,349 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MailFlow - Email Marketing Platform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { font-family: 'Inter', sans-serif; background: #000; color: #fff; overflow-x: hidden; }
-        
-        @keyframes float-3d { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-30px); } }
-        @keyframes pulse-intense { 0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.3), inset 0 0 20px rgba(139, 92, 246, 0.1); } 50% { box-shadow: 0 0 60px rgba(139, 92, 246, 0.6), inset 0 0 40px rgba(139, 92, 246, 0.2); } }
-        @keyframes morph { 0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; } 50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; } }
-        @keyframes slide-up { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes text-shimmer { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
-        
-        .animate-float { animation: float-3d 4s ease-in-out infinite; }
-        .animate-pulse { animation: pulse-intense 3s ease-in-out infinite; }
-        .slide-up-1 { animation: slide-up 0.8s ease-out; }
-        .slide-up-2 { animation: slide-up 0.8s ease-out 0.2s both; }
-        .slide-up-3 { animation: slide-up 0.8s ease-out 0.4s both; }
-        
-        .text-shimmer { background: linear-gradient(90deg, #a78bfa 0%, #ec4899 25%, #60a5fa 50%, #ec4899 75%, #a78bfa 100%); background-size: 200% center; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: text-shimmer 3s ease-in-out infinite; }
-        
-        .nav { position: fixed; top: 0; width: 100%; z-index: 50; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(139, 92, 246, 0.1); padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 24px; font-weight: 800; letter-spacing: -1px; }
-        .logo-gradient { background: linear-gradient(135deg, #a78bfa, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        
-        .btn-primary { background: linear-gradient(135deg, #8b5cf6, #ec4899); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3); }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 20px 50px rgba(139, 92, 246, 0.5); }
-        
-        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding-top: 80px; background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.1), transparent 70%); }
-        
-        .blob { position: absolute; border-radius: 40%; animation: morph 8s ease-in-out infinite; opacity: 0.1; filter: blur(50px); background: linear-gradient(135deg, #8b5cf6, #ec4899); }
-        .grid-bg { position: absolute; width: 100%; height: 100%; background-image: linear-gradient(rgba(139, 92, 246, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px); background-size: 50px 50px; opacity: 0.2; }
-        
-        .hero-content { position: relative; z-index: 10; text-align: center; max-width: 900px; padding: 0 32px; }
-        
-        .badge { display: inline-block; background: rgba(139, 92, 246, 0.2); border: 1px solid rgba(139, 92, 246, 0.4); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #a78bfa; margin-bottom: 24px; }
-        
-        .hero-title { font-family: 'Syne', sans-serif; font-size: 72px; font-weight: 800; line-height: 1; margin-bottom: 24px; letter-spacing: -2px; }
-        .hero-desc { font-size: 18px; color: #999; max-width: 600px; margin: 0 auto 48px; line-height: 1.6; }
-        
-        .btn-group { display: flex; gap: 16px; justify-content: center; margin-top: 32px; flex-wrap: wrap; }
-        .btn-secondary { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: white; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; }
-        .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); }
-        
-        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 700px; margin: 60px auto 0; }
-        .stat-card { background: rgba(139, 92, 246, 0.05); border: 1px solid rgba(139, 92, 246, 0.2); border-radius: 14px; padding: 24px; text-align: center; transition: all 0.3s ease; }
-        .stat-card:hover { background: rgba(139, 92, 246, 0.1); border-color: rgba(139, 92, 246, 0.4); transform: translateY(-6px); }
-        .stat-num { background: linear-gradient(135deg, #a78bfa, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 40px; font-weight: 800; font-family: 'Syne', sans-serif; margin-bottom: 6px; }
-        .stat-label { font-size: 12px; color: #999; }
-        
-        .dashboard-preview { margin-top: 80px; max-width: 800px; border: 2px solid rgba(139, 92, 246, 0.4); border-radius: 20px; padding: 40px; aspect-ratio: 16/9; background: linear-gradient(to bottom, rgba(139, 92, 246, 0.1), #000); display: flex; flex-direction: column; align-items: center; justify-content: center; animation: pulse-intense 3s ease-in-out infinite; }
-        
-        .section { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
-        .section-title { font-family: 'Syne', sans-serif; font-size: 56px; font-weight: 800; text-align: center; margin-bottom: 60px; line-height: 1.1; letter-spacing: -1px; }
-        .padding-section { padding: 120px 0; position: relative; }
-        
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
-        .feature-card { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(139, 92, 246, 0.2); border-radius: 14px; padding: 32px; transition: all 0.3s ease; cursor: pointer; }
-        .feature-card:hover { transform: translateY(-12px); border-color: rgba(139, 92, 246, 0.5); background: rgba(255, 255, 255, 0.05); box-shadow: 0 40px 80px rgba(139, 92, 246, 0.15); }
-        .feature-icon { font-size: 32px; margin-bottom: 16px; display: block; }
-        .feature-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-        .feature-desc { font-size: 14px; color: #999; line-height: 1.6; }
-        
-        .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; }
-        .step-card { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(139, 92, 246, 0.2); border-radius: 14px; padding: 40px 24px; text-align: center; transition: all 0.3s ease; }
-        .step-card:hover { transform: scale(1.05); border-color: rgba(139, 92, 246, 0.5); }
-        .step-num { font-size: 56px; font-weight: 800; color: #8b5cf6; margin-bottom: 12px; font-family: 'Syne', sans-serif; }
-        .step-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
-        .step-desc { color: #999; margin-bottom: 12px; }
-        
-        .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
-        .testimonial { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(139, 92, 246, 0.2); border-radius: 14px; padding: 32px; transition: all 0.3s ease; }
-        .testimonial:hover { background: rgba(255, 255, 255, 0.08); box-shadow: 0 30px 60px rgba(139, 92, 246, 0.15); }
-        .testimonial-quote { font-size: 16px; color: #ddd; margin-bottom: 16px; line-height: 1.6; font-style: italic; }
-        .testimonial-author { display: flex; align-items: center; gap: 12px; }
-        .avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #a78bfa, #ec4899); display: flex; align-items: center; justify-content: center; font-size: 20px; }
-        .author-name { font-weight: 600; font-size: 14px; }
-        .author-role { font-size: 12px; color: #999; }
-        
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
-        .pricing-card { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(139, 92, 246, 0.2); border-radius: 14px; padding: 40px 24px; transition: all 0.3s ease; position: relative; }
-        .pricing-card:hover { transform: translateY(-12px); border-color: rgba(139, 92, 246, 0.6); box-shadow: 0 50px 100px rgba(139, 92, 246, 0.2); }
-        .pricing-card.featured { background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(236, 72, 153, 0.15)); border: 2px solid rgba(139, 92, 246, 0.6); transform: scale(1.05); }
-        .pricing-card.featured:hover { transform: scale(1.08) translateY(-16px); }
-        
-        .pricing-name { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
-        .pricing-desc { font-size: 13px; color: #999; margin-bottom: 20px; }
-        .price { font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 800; margin: 20px 0; background: linear-gradient(135deg, #a78bfa, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .price-period { font-size: 14px; color: #999; font-weight: normal; }
-        
-        .pricing-btn { width: 100%; padding: 12px; margin: 20px 0; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; border: none; }
-        .pricing-btn-primary { background: linear-gradient(135deg, #8b5cf6, #ec4899); color: white; }
-        .pricing-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 20px 40px rgba(139, 92, 246, 0.4); }
-        .pricing-btn-secondary { background: rgba(255, 255, 255, 0.05); color: white; border: 1px solid rgba(255, 255, 255, 0.1); }
-        .pricing-btn-secondary:hover { background: rgba(255, 255, 255, 0.1); }
-        
-        .features-list { list-style: none; margin-top: 16px; margin-bottom: 0; }
-        .features-list li { padding: 8px 0; color: #ccc; font-size: 14px; display: flex; align-items: center; gap: 8px; }
-        .features-list span { color: #a78bfa; font-weight: 700; }
-        
-        .cta-section { padding: 120px 32px; text-align: center; position: relative; }
-        .cta-title { font-family: 'Syne', sans-serif; font-size: 56px; font-weight: 800; margin-bottom: 24px; }
-        .cta-desc { font-size: 18px; color: #999; margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; }
-        .cta-subtext { color: #999; font-size: 14px; margin-top: 16px; }
-        
-        .footer { border-top: 1px solid rgba(139, 92, 246, 0.1); padding: 40px 32px; text-align: center; color: #999; }
-        .footer-links { display: flex; justify-content: center; gap: 24px; margin-top: 16px; }
-        .footer-links a { color: #999; text-decoration: none; transition: color 0.3s; }
-        .footer-links a:hover { color: #a78bfa; }
-        
-        @media (max-width: 768px) {
-            .hero-title { font-size: 40px; }
-            .section-title { font-size: 32px; }
-            .stats-grid { grid-template-columns: 1fr; }
-            .pricing-card.featured { transform: scale(1); }
-            .pricing-card.featured:hover { transform: scale(1) translateY(-12px); }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn Content for Founders | [Your Name]</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #ffffff;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      padding: 60px 0 40px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    header h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #0a66c2;
+    }
+
+    header p {
+      font-size: 1.25rem;
+      color: #555;
+      max-width: 600px;
+      margin: 0 auto 30px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: #0a66c2;
+      color: white;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05rem;
+      transition: background 0.2s;
+    }
+
+    .cta-btn:hover {
+      background: #004182;
+    }
+
+    /* Sections */
+    section {
+      padding: 60px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 24px;
+      color: #111;
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: #444;
+    }
+
+    /* What I Do */
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .service-card {
+      background: #f8fafc;
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .service-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: #0a66c2;
+    }
+
+    /* Packages */
+    .packages {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .package {
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 28px;
+      text-align: center;
+    }
+
+    .package.featured {
+      border: 2px solid #0a66c2;
+      position: relative;
+    }
+
+    .package.featured::before {
+      content: "Most Popular";
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0a66c2;
+      color: white;
+      font-size: 0.8rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .package h3 {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #0a66c2;
+      margin: 12px 0;
+    }
+
+    .package ul {
+      list-style: none;
+      text-align: left;
+      margin: 20px 0;
+    }
+
+    .package ul li {
+      padding: 6px 0;
+      color: #444;
+    }
+
+    .package ul li::before {
+      content: "✓ ";
+      color: #0a66c2;
+      font-weight: bold;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .testimonial {
+      background: #f8fafc;
+      padding: 24px;
+      border-radius: 12px;
+      border-left: 4px solid #0a66c2;
+    }
+
+    .testimonial p {
+      font-style: italic;
+      margin-bottom: 16px;
+    }
+
+    .client {
+      font-weight: 600;
+      color: #111;
+    }
+
+    .client span {
+      display: block;
+      font-weight: 400;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    /* Contact */
+    .contact {
+      text-align: center;
+      background: #f8fafc;
+      padding: 60px 20px;
+      border-radius: 12px;
+    }
+
+    .contact h2 {
+      margin-bottom: 12px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 0;
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.8rem;
+      }
+      header p {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div class="nav">
-    <div class="logo">mail<span class="logo-gradient">Flow</span></div>
-    <button class="btn-primary">Get Started</button>
-</div>
-
-<section class="hero">
-    <div style="position: absolute; inset: 0; overflow: hidden;">
-        <div class="grid-bg"></div>
-        <div class="blob" style="width: 500px; height: 500px; top: -150px; left: -150px;"></div>
-        <div class="blob" style="width: 600px; height: 600px; bottom: -200px; right: -200px; animation-delay: 4s;"></div>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <h1>I Help Founders Grow on LinkedIn</h1>
+      <p>Consistent, high-quality LinkedIn content written in your voice — so you stay visible and attract opportunities without spending hours writing.</p>
+      <a href="#contact" class="cta-btn">Get Started</a>
     </div>
+  </header>
 
-    <div class="hero-content">
-        <div class="badge slide-up-1">✨ The Future of Email</div>
-        <h1 class="hero-title slide-up-2">Email that <span class="text-shimmer">actually converts</span></h1>
-        <p class="hero-desc slide-up-3">Stop wasting time on email. Get 40% higher open rates, 3x more conversions, and keep your customers coming back for more.</p>
-
-        <div class="btn-group slide-up-3">
-            <button class="btn-primary">Start Free Trial →</button>
-            <button class="btn-secondary">Watch Demo</button>
+  <!-- What I Do -->
+  <section>
+    <div class="container">
+      <h2>What I Provide</h2>
+      <p>I specialize in creating LinkedIn content for founders and business owners who want a strong personal presence but don’t have the time to post consistently.</p>
+      
+      <div class="services">
+        <div class="service-card">
+          <h3>Content Strategy</h3>
+          <p>Clear direction based on your expertise, audience, and goals.</p>
         </div>
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <p class="stat-num">40%</p>
-                <p class="stat-label">Open Rate Lift</p>
-            </div>
-            <div class="stat-card">
-                <p class="stat-num">3x</p>
-                <p class="stat-label">More Conversions</p>
-            </div>
-            <div class="stat-card">
-                <p class="stat-num">2m</p>
-                <p class="stat-label">Setup Time</p>
-            </div>
+        <div class="service-card">
+          <h3>Ghostwritten Posts</h3>
+          <p>12–16 original posts per month written in your authentic voice.</p>
         </div>
-
-        <div class="dashboard-preview">
-            <p style="font-size: 48px; margin-bottom: 16px;">📧</p>
-            <p style="color: #999; font-size: 16px;">Interactive Dashboard Preview</p>
+        <div class="service-card">
+          <h3>Profile Support</h3>
+          <p>Guidance on optimizing your LinkedIn profile for better results.</p>
         </div>
+      </div>
     </div>
-</section>
+  </section>
 
-<section class="padding-section" style="background: linear-gradient(to bottom, rgba(139, 92, 246, 0.02), transparent);">
-    <div class="section">
-        <div class="badge" style="justify-content: center; display: flex;">Features</div>
-        <h2 class="section-title">Everything creators need</h2>
-        <p style="text-align: center; font-size: 18px; color: #999; max-width: 700px; margin: 0 auto 80px;">From automated campaigns to advanced analytics, we've built everything you need to succeed with email.</p>
-
-        <div class="features-grid">
-            <div class="feature-card"><span class="feature-icon">⚡</span><div class="feature-title">Lightning Speed</div><div class="feature-desc">Send 100k emails in seconds on our global infrastructure.</div></div>
-            <div class="feature-card"><span class="feature-icon">🎯</span><div class="feature-title">Smart Segments</div><div class="feature-desc">Target the right person at the right time with AI-powered segmentation.</div></div>
-            <div class="feature-card"><span class="feature-icon">📊</span><div class="feature-title">Deep Analytics</div><div class="feature-desc">Know exactly what works with advanced tracking and reporting.</div></div>
-            <div class="feature-card"><span class="feature-icon">🤖</span><div class="feature-title">Auto Campaigns</div><div class="feature-desc">Set it and forget it with powerful automation sequences.</div></div>
-            <div class="feature-card"><span class="feature-icon">🔌</span><div class="feature-title">Integrations</div><div class="feature-desc">Connect to 500+ tools and services seamlessly.</div></div>
-            <div class="feature-card"><span class="feature-icon">👥</span><div class="feature-title">Collaboration</div><div class="feature-desc">Work with your team with built-in roles and permissions.</div></div>
+  <!-- Packages -->
+  <section>
+    <div class="container">
+      <h2>Packages</h2>
+      <div class="packages">
+        <div class="package">
+          <h3>Starter</h3>
+          <div class="price">$700<span style="font-size:1rem;font-weight:400">/mo</span></div>
+          <ul>
+            <li>8–10 posts per month</li>
+            <li>Basic content strategy</li>
+            <li>Ready-to-post content</li>
+          </ul>
         </div>
-    </div>
-</section>
-
-<section class="padding-section">
-    <div class="section">
-        <div class="badge" style="justify-content: center; display: flex;">Simple Process</div>
-        <h2 class="section-title">3 steps to email success</h2>
-
-        <div class="steps-grid">
-            <div class="step-card"><div class="step-num">1</div><div class="step-title">Connect</div><div class="step-desc">Import your audience in seconds</div><div style="font-size: 12px; color: #a78bfa; font-weight: 600;">⏱️ 2 minutes</div></div>
-            <div class="step-card"><div class="step-num">2</div><div class="step-title">Create</div><div class="step-desc">Beautiful emails without coding</div><div style="font-size: 12px; color: #a78bfa; font-weight: 600;">⏱️ 10 minutes</div></div>
-            <div class="step-card"><div class="step-num">3</div><div class="step-title">Convert</div><div class="step-desc">Track, analyze, and optimize</div><div style="font-size: 12px; color: #a78bfa; font-weight: 600;">⏱️ Ongoing</div></div>
+        <div class="package featured">
+          <h3>Growth</h3>
+          <div class="price">$1,400<span style="font-size:1rem;font-weight:400">/mo</span></div>
+          <ul>
+            <li>12–16 posts per month</li>
+            <li>Full content strategy</li>
+            <li>Light engagement guidance</li>
+            <li>Monthly performance review</li>
+          </ul>
         </div>
-    </div>
-</section>
-
-<section class="padding-section" style="background: linear-gradient(to bottom, transparent, rgba(139, 92, 246, 0.02));">
-    <div class="section">
-        <div class="badge" style="justify-content: center; display: flex;">Social Proof</div>
-        <h2 class="section-title">Join 10,000+ creators</h2>
-        <p style="text-align: center; font-size: 18px; color: #999; max-width: 700px; margin: 0 auto 80px;">See what founders and creators are saying about MailFlow.</p>
-
-        <div class="testimonials-grid">
-            <div class="testimonial"><p class="testimonial-quote">"Increased our open rates by 45% in the first month alone."</p><div class="testimonial-author"><div class="avatar">👩</div><div><div class="author-name">Sarah Chen</div><div class="author-role">Founder, TechFlow</div></div></div></div>
-            <div class="testimonial"><p class="testimonial-quote">"Best email tool we've ever used. Period."</p><div class="testimonial-author"><div class="avatar">👨</div><div><div class="author-name">Mike Johnson</div><div class="author-role">Marketer, Acme Co</div></div></div></div>
-            <div class="testimonial"><p class="testimonial-quote">"3x ROI on our email campaigns. This is a game-changer."</p><div class="testimonial-author"><div class="avatar">👩</div><div><div class="author-name">Lisa Park</div><div class="author-role">CEO, StartupHub</div></div></div></div>
+        <div class="package">
+          <h3>Premium</h3>
+          <div class="price">$2,200<span style="font-size:1rem;font-weight:400">/mo</span></div>
+          <ul>
+            <li>16–20 posts per month</li>
+            <li>Everything in Growth</li>
+            <li>X (Twitter) content included</li>
+            <li>Priority support</li>
+          </ul>
         </div>
+      </div>
     </div>
-</section>
+  </section>
 
-<section class="padding-section" style="background: linear-gradient(to bottom, rgba(139, 92, 246, 0.02), transparent);">
-    <div class="section">
-        <div class="badge" style="justify-content: center; display: flex;">Pricing</div>
-        <h2 class="section-title">Plans that scale with you</h2>
-        <p style="text-align: center; font-size: 18px; color: #999; max-width: 700px; margin: 0 auto 80px;">No hidden fees. No surprises. Just transparent pricing.</p>
-
-        <div class="pricing-grid">
-            <div class="pricing-card"><div class="pricing-name">Starter</div><div class="pricing-desc">Perfect to get started</div><div class="price">Free</div><button class="pricing-btn pricing-btn-secondary">Get Started</button><ul class="features-list"><li><span>✓</span> Up to 500 contacts</li><li><span>✓</span> 1 email per day</li><li><span>✓</span> Basic analytics</li><li><span>✓</span> Email support</li></ul></div>
-
-            <div class="pricing-card featured"><div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: rgba(139, 92, 246, 0.2); border: 1px solid rgba(139, 92, 246, 0.4); padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #a78bfa;">Most Popular</div><div class="pricing-name">Professional</div><div class="pricing-desc">For growing businesses</div><div class="price">$29<span class="price-period">/month</span></div><button class="pricing-btn pricing-btn-primary">Get Started</button><ul class="features-list"><li><span>✓</span> Unlimited contacts</li><li><span>✓</span> Unlimited emails</li><li><span>✓</span> Advanced analytics</li><li><span>✓</span> Priority support</li><li><span>✓</span> Custom integrations</li><li><span>✓</span> Team collaboration</li></ul></div>
-
-            <div class="pricing-card"><div class="pricing-name">Enterprise</div><div class="pricing-desc">For large teams</div><div class="price">Custom</div><button class="pricing-btn pricing-btn-secondary">Talk to Sales</button><ul class="features-list"><li><span>✓</span> Everything in Pro</li><li><span>✓</span> Dedicated account manager</li><li><span>✓</span> Custom contracts</li><li><span>✓</span> Priority infrastructure</li><li><span>✓</span> SSO & security</li></ul></div>
+  <!-- Testimonials (Fake as requested) -->
+  <section>
+    <div class="container">
+      <h2>What Clients Say</h2>
+      <div class="testimonials">
+        <div class="testimonial">
+          <p>"I was posting maybe once a month. Within 6 weeks of working together, my profile views doubled and I started getting inbound messages from potential clients."</p>
+          <div class="client">
+            James R.
+            <span>Founder, SaaS Startup</span>
+          </div>
         </div>
-    </div>
-</section>
-
-<section class="cta-section">
-    <div class="blob" style="width: 800px; height: 800px; top: -300px; right: -300px;"></div>
-    <div class="section" style="position: relative; z-index: 10; max-width: 800px;">
-        <h2 class="cta-title">Ready to transform your email?</h2>
-        <p class="cta-desc">Join thousands of creators already getting 40% higher open rates and 3x more conversions.</p>
-        <button class="btn-primary" style="font-size: 18px; padding: 20px 40px;">Start Free Trial →</button>
-        <p class="cta-subtext">✓ No credit card required ✓ 2-minute setup ✓ Full feature access</p>
-    </div>
-</section>
-
-<div class="footer">
-    <div class="section">
-        <p>© 2024 MailFlow. All rights reserved.</p>
-        <div class="footer-links">
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-            <a href="#">Contact</a>
+        <div class="testimonial">
+          <p>"The content actually sounds like me. That’s rare. I finally have a consistent presence without spending my evenings writing posts."</p>
+          <div class="client">
+            Sarah K.
+            <span>CEO, Consulting Firm</span>
+          </div>
         </div>
+        <div class="testimonial">
+          <p>"Clear communication, on-time delivery, and posts that perform. Highly recommend if you want to grow your personal brand on LinkedIn."</p>
+          <div class="client">
+            Michael T.
+            <span>Founder, B2B Agency</span>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact">
+        <h2>Ready to grow your LinkedIn presence?</h2>
+        <p>Send me a message and I’ll reply within 24 hours.</p>
+        <br>
+        <a href="mailto:yourname@email.com" class="cta-btn">Email Me</a>
+        <p style="margin-top: 20px; font-size: 0.95rem; color: #666;">
+          Or connect with me on <a href="https://linkedin.com/in/yourprofile" style="color:#0a66c2;">LinkedIn</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 [Your Name] · LinkedIn Content for Founders</p>
+    </div>
+  </footer>
 
 </body>
 </html>
